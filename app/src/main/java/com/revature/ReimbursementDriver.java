@@ -29,6 +29,10 @@ public class ReimbursementDriver {
         server.routes(()-> {
             path("users", () -> {
                 post("/register", uc.handleRegister);
+                post("/login", uc.handleLogin);
+                put("/update", uc.handleUpdateUser);
+                delete("/remove", uc.handleDeleteUser);
+                get("/read", uc.handleReadUser);
             });
 
         });

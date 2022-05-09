@@ -16,5 +16,29 @@ public class UserService {
         ud.createUser(register);
     }
 
+    public User loginUser(String username, String password){
+
+        User u = ud.readUserByUsername(username);
+
+        if(u != null){
+            if(password.equals(u.getPassword())){
+                return u;
+            } else {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    public User updateUserInfo(User u){
+        return ud.updateUser(u);
+    }
+
+    public void deleteUser(int id){
+        ud.deleteUser(id);
+    }
+
+    public User viewUser(int id) { return ud.viewUserDao(id); }
 
 }

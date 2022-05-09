@@ -15,7 +15,7 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String username, String password, String email, String first, String last, int role) {
+    public User(int userId, String username, String password, String first, String last, String email, int role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -25,7 +25,7 @@ public class User {
         this.role = role;
     }
 
-    public User(int userId, String username, String password, String email, String first, String last) {
+    public User(int userId, String username, String password, String first, String last, String email) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -93,7 +93,7 @@ public class User {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Users{" +
+        return "User{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

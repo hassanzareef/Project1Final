@@ -8,10 +8,12 @@ public interface IUserDao {
 
     //public List<User> readAllUsers();
 
-    //public User readUserByEmail(String email);
+    public User readUserByUsername(String username);
 
-    //public User updateUser(User u);
+    public User updateUser(User u);
 
-    //public void deleteUser(User u);
+    public void deleteUser(int id);
+
+    public User viewUserDao(int id);
 
 }
