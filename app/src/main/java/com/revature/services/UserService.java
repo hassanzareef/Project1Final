@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.dao.IUserDao;
+import com.revature.models.Reimbursements;
 import com.revature.models.User;
 
 public class UserService {
@@ -40,5 +41,7 @@ public class UserService {
     }
 
     public User viewUser(int id) { return ud.viewUserDao(id); }
+
+
 
 }

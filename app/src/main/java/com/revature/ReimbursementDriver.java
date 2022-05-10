@@ -5,10 +5,14 @@ package com.revature;
 
 
 import com.revature.controllers.UserController;
+import com.revature.dao.IReimbursementDao;
 import com.revature.dao.IUserDao;
+import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.dao.UserDaoJDBC;
+import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import io.javalin.Javalin;
+import com.revature.controllers.ReimbursementController;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -20,6 +24,10 @@ public class ReimbursementDriver {
         IUserDao ud = new UserDaoJDBC();
         UserService us = new UserService(ud);
         UserController uc = new UserController(us);
+
+        IReimbursementDao rd = new ReimbursementDaoJDBC();
+        ReimbursementService rs = new ReimbursementService(rd);
+        ReimbursementController rc = new ReimbursementController(rs);
 
 
         Javalin server = Javalin.create(config -> {
@@ -34,7 +42,17 @@ public class ReimbursementDriver {
                 delete("/remove", uc.handleDeleteUser);
                 get("/read", uc.handleReadUser);
             });
+            path("reimbursements", () -> {
+                post("/create", rc.handleCreateRequest);
+                get("/pending", rc.handleViewPendingRequest);
+                get("/resolved", rc.handleViewResolvedRequest);
+                get("/allpending", rc.handleViewAllPendingRequests);
+                get("/allresolved", rc.handleViewAllResolvedRequests);
+                get("/{id}", rc.handleViewRequestById);
+                put("/approve/{id}", rc.handleApproveRequest);
+                put("/deny/{id}", rc.handleDenyRequest);
 
+            });
         });
 
         server.start(8000);
