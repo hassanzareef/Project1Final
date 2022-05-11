@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IUserDao {
     //CRUD
-    public void createUser(User u);
+    public User createUser(User u);
 
     //public List<User> readAllUsers();
 

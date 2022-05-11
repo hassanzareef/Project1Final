@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IReimbursementDao {
 
-    public void createRequest(int author, double amount, String description, int type);
+    public Reimbursements createRequest(int author, double amount, String description, int type);
     public List<Reimbursements> viewPendingRequest(int id);
 
     public List<Reimbursements> viewResolvedRequest(int id);

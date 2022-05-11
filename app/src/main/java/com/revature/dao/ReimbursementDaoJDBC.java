@@ -10,7 +10,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 
     public ConnectionSingleton cs = ConnectionSingleton.getConnectionSingleton();
     @Override
-    public void createRequest(int author, double amount, String description, int type) {
+    public Reimbursements createRequest(int author, double amount, String description, int type) {
         Connection c = cs.getConnection();
 
         String sql = "insert into reimbursement (amount, submitted_date, description, reimbursement_author, reimbursement_status, reimbursement_type) values (?, ?, ?, ?, ?, ?)";
@@ -26,9 +26,10 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
             ps.setInt(6, type);
 
             ps.execute();
-
+            return new Reimbursements(amount, description, type);
         }catch (SQLException e){
             e.printStackTrace();
+            return null;
         }
     }
 

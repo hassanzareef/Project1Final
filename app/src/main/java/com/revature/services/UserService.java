@@ -1,8 +1,9 @@
 package com.revature.services;
 
 import com.revature.dao.IUserDao;
-import com.revature.models.Reimbursements;
+import com.revature.exceptions.UsernameOrPasswordIncorrectException;
 import com.revature.models.User;
+
 import java.util.List;
 
 public class UserService {
@@ -27,8 +28,6 @@ public class UserService {
         } else {
             return u;
         }
-
-        return null;
     }
 
     public User updateUserInfo(User u){

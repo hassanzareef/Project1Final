@@ -3,11 +3,30 @@
  */
 package com.revature;
 
+import com.revature.dao.IUserDao;
+import com.revature.models.User;
+import com.revature.services.UserService;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.revature.exceptions.UsernameOrPasswordIncorrectException;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserTesting {
+
+    @Before
+    public void setupBeforeMethods(){
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Mock
     static IUserDao ud;
@@ -17,8 +36,8 @@ public class UserTesting {
 
     @Test
     public void checkCreatesNewUser(){
-
-        when(ud.createUser(any())).thenReturn(new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com"));
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        when(ud.createUser(any())).thenReturn(u);
         us.registerUser("JDoe", "password", "John", "Doe", "jdoe@mail.com");
         verify(ud).createUser(any());
 
@@ -27,7 +46,8 @@ public class UserTesting {
     @Test
     public void checkLoginSuccess() throws UsernameOrPasswordIncorrectException {
 
-        when(ud.readUserByUsername(any())).thenReturn(new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com"));
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        when(ud.readUserByUsername(any())).thenReturn(u);
         User loggin = us.loginUser("JDoe", "password");
         verify(ud).readUserByUsername(any());
         assertEquals("Username should be JDoe", "JDoe", loggin.getUsername());
@@ -35,9 +55,43 @@ public class UserTesting {
 
     @Test(expected=UsernameOrPasswordIncorrectException.class)
     public void wrongUsernameTest() throws UsernameOrPasswordIncorrectException{
-        User u = null;
-        when(ud.readUserByUsername(any())).thenReturn(u);
-
+        when(ud.readUserByUsername(any())).thenReturn(null);
         User loggedIn = us.loginUser("JDoe", "password");
+    }
+
+    @Test(expected=UsernameOrPasswordIncorrectException.class)
+    public void wrongPasswordTest() throws UsernameOrPasswordIncorrectException {
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        when(ud.readUserByUsername(any())).thenReturn(u);
+        User loggedIn = us.loginUser("JDoe", "pass");
+    }
+
+    @Test
+    public void checkUpdateUser(){
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        when(ud.updateUser(any())).thenReturn(u);
+        User returned = us.updateUserInfo(u);
+        //assertEquals("Test", u, returned);
+        verify(ud).updateUser(any());
+    }
+
+    @Test
+    public void checkViewUser(){
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        when(ud.viewUserDao(anyInt())).thenReturn(u);
+        User result = us.viewUser(0);
+        assertEquals("Compare", u, result);
+        verify(ud).viewUserDao(anyInt());
+    }
+
+    @Test
+    public void checkViewAllUser(){
+        List<User> lu = new ArrayList<>();
+        User u = new User(0, "JDoe", "password", "John", "Doe", "jdoe@mail.com");
+        lu.add(u);
+        when(ud.viewAllUser()).thenReturn(lu);
+        List<User> listU = us.viewAllUser();
+        assertEquals("Compare", listU, lu);
+        verify(ud).viewAllUser();
     }
 }

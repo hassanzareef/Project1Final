@@ -11,7 +11,7 @@ public class UserDaoJDBC implements IUserDao {
 
     public ConnectionSingleton cs = ConnectionSingleton.getConnectionSingleton();
 
-    public void createUser(User u){
+    public User createUser(User u){
 
         Connection c = cs.getConnection();
 
@@ -28,9 +28,11 @@ public class UserDaoJDBC implements IUserDao {
             ps.setInt(6, u.getRole());
 
             ps.execute();
+            return u;
 
         }catch (SQLException e){
             e.printStackTrace();
+            return null;
         }
     }
 
