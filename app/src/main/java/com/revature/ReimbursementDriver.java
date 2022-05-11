@@ -41,6 +41,8 @@ public class ReimbursementDriver {
                 put("/update", uc.handleUpdateUser);
                 delete("/remove", uc.handleDeleteUser);
                 get("/read", uc.handleReadUser);
+                get("/viewall", uc.handleViewAllUsers);
+                post("/logout", uc.handleLogout);
             });
             path("reimbursements", () -> {
                 post("/create", rc.handleCreateRequest);

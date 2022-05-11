@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.dao.IUserDao;
 import com.revature.models.Reimbursements;
 import com.revature.models.User;
+import java.util.List;
 
 public class UserService {
 
@@ -17,16 +18,14 @@ public class UserService {
         ud.createUser(register);
     }
 
-    public User loginUser(String username, String password){
+    public User loginUser(String username, String password) throws UsernameOrPasswordIncorrectException {
 
         User u = ud.readUserByUsername(username);
 
-        if(u != null){
-            if(password.equals(u.getPassword())){
-                return u;
-            } else {
-                return null;
-            }
+        if(u == null || !password.equals(u.getPassword())){
+            throw new UsernameOrPasswordIncorrectException();
+        } else {
+            return u;
         }
 
         return null;
@@ -42,6 +41,6 @@ public class UserService {
 
     public User viewUser(int id) { return ud.viewUserDao(id); }
 
-
+    public List<User> viewAllUser() { return ud.viewAllUser(); }
 
 }

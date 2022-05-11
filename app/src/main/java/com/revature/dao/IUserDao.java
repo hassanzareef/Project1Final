@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import com.revature.models.User;
+import java.util.List;
 
 public interface IUserDao {
     //CRUD
@@ -16,4 +17,5 @@ public interface IUserDao {
 
     public User viewUserDao(int id);
 
+    public List<User> viewAllUser();
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.services.UserService;
 import io.javalin.http.Handler;
 import com.revature.models.*;
+import javax.servlet.http.HttpSession;
 
 
 public class UserController {
@@ -75,6 +76,33 @@ public class UserController {
         } else {
             int id = (int) ctx.req.getSession().getAttribute("id");
             ctx.result(om.writeValueAsString(us.viewUser(id)));
+        }
+    };
+
+    public Handler handleViewAllUsers = (ctx) -> {
+        if (ctx.req.getSession().getAttribute("id") == null) {
+            ctx.status(401);
+            ctx.result("You must login to view all users");
+        } else {
+            if(((int)ctx.req.getSession().getAttribute("role") == 2)){
+                ctx.result(om.writeValueAsString(us.viewAllUser()));
+                ctx.status(201);
+
+            }else{
+                ctx.result("You are not a manager");
+                ctx.status(403);
+            }
+        }
+    };
+
+    public Handler handleLogout = (ctx) -> {
+        if (ctx.req.getSession().getAttribute("id") == null) {
+            ctx.status(401);
+            ctx.result("You must login to logout");
+        } else {
+            HttpSession session = ctx.req.getSession();
+            session.invalidate();
+            ctx.result("User has been logged out");
         }
     };
 }

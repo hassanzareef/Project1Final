@@ -2,6 +2,8 @@ package com.revature.dao;
 
 import com.revature.models.User;
 import com.revature.utils.ConnectionSingleton;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.sql.*;
 
@@ -113,6 +115,27 @@ public class UserDaoJDBC implements IUserDao {
             }
             return result;
 
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> viewAllUser() {
+        Connection c = cs.getConnection();
+        String sql = "SELECT * FROM users WHERE role = 1";
+
+        try{
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            List<User> result = new ArrayList<>();
+
+            while(rs.next()){
+                result.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7)));
+            }
+            return result;
         }catch(SQLException e){
             e.printStackTrace();
             return null;
