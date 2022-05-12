@@ -4,4 +4,4 @@
 # Ignore Gradle build output directory
 build
 
-/nodes_modules
+frontend/node_modules
