@@ -1,13 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {LoginPage} from './views/LoginPage/LoginPage';
+
+
 
 function App() {
   return (
-    <div className="App">
-        <h1>RIGHT HERE</h1>
-    </div>
-  );
+    <BrowserRouter>
+    <Routes>
+        <Route path="/login" element={<LoginPage />}/>
+    </Routes>
+  </BrowserRouter>
+);
+  
 }
 
 export default App;
