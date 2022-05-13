@@ -1,3 +1,4 @@
+import {IUser} from './IUser';
 
 export interface IReimbursements {
 
@@ -6,8 +7,8 @@ export interface IReimbursements {
     subDate: Date,
     resDate?: Date,
     description: string,
-    reimbursementAuthor: number,
-    reimbursementResolver?: number,
+    reimbursementAuthor: IUser,
+    reimbursementResolver?: IUser,
     reimbursementStatus: number,
     reimbursementType: number
 

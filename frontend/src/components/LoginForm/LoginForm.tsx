@@ -16,8 +16,6 @@ export const Login: React.FC = () => {
         } else{
             setPassword(event.target.value);
         }
-
-
     }
 
     const handleLogin = (event:React.MouseEvent<HTMLButtonElement>) => {

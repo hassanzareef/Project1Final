@@ -1,0 +1,29 @@
+.reimbursements-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.table-class {
+    width: 90%;
+    border: solid 1px;
+}
+
+.table-row {
+    border: solid;
+}
+
+.table-row-head {
+    border: solid 2px;
+}
+
+.table-head {
+    font-weight: bolder;
+}
+
+.table-cell {
+    border: solid 1px;
+    margin-left: 2px;
+    text-align: center;
+}
