@@ -3,18 +3,18 @@ import axios from "axios";
 import { Reimbursements } from "../components/Reimbursements/Reimbursements";
 import { IReimbursements } from "../interfaces/IReimbursements";
 
-interface ReimbursementSliceState{
+interface PendingSliceState{
     loading: boolean,
     error: boolean,
-    reimbursements?: IReimbursements[]
+    pending?: IReimbursements[]
 }
 
-const initialReimbursementsState: ReimbursementSliceState = {
+const initialReimbursementsState: PendingSliceState = {
     loading: false,
     error: false
 };
 
-export const getReimbursements = createAsyncThunk(
+export const getPending = createAsyncThunk(
   "reimbursements/get",
   async (id:number, thunkAPI) => {
       try{
@@ -27,6 +27,7 @@ export const getReimbursements = createAsyncThunk(
       }
   }  
 );
+
 
 export const createReimbursement = createAsyncThunk(
     "reimbursements/create",
@@ -42,37 +43,55 @@ export const createReimbursement = createAsyncThunk(
     }
 )
 
-export const ReimbursementsSlice = createSlice({
-    name: 'reimbursements',
+export const getAllReimbursements = createAsyncThunk(
+    "reimbursements/get",
+    async (thunkAPI) => {
+        try{
+            axios.defaults.withCredentials = true;
+            const res = await axios.get(`http://localhost:8000/reimbursements/allpending`);
+              console.log(res);
+            return res.data;
+        } catch (e){
+            console.log(e);
+        }
+    }  
+  );
+
+export const PendingSlice = createSlice({
+    name: 'pending',
     initialState: initialReimbursementsState,
     reducers: {
         clearPosts: (state) => {
-            state.reimbursements = undefined
+            state.pending = undefined
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getReimbursements.pending, (state, action)=> {
+        builder.addCase(getPending.pending, (state, action)=> {
             state.loading = true;
         });
 
-        builder.addCase(getReimbursements.fulfilled, (state, action) => {
-            state.reimbursements = action.payload;
+        builder.addCase(getPending.fulfilled, (state, action) => {
+            state.pending = action.payload;
             state.loading = false;
             state.error = false;
         });
 
-        builder.addCase(getReimbursements.rejected, (state, action) => {
+        builder.addCase(getPending.rejected, (state, action) => {
             state.error = true;
             state.loading = false;
         });
         builder.addCase(createReimbursement.fulfilled, (state, action) => {
-            if(state.reimbursements && action.payload){
-                state.reimbursements = [action.payload, ...state.reimbursements];
+            if(state.pending && action.payload){
+                state.pending = [action.payload, ...state.pending];
             }
         });
+
+       
     }
 });
 
-export const {clearPosts} = ReimbursementsSlice.actions;
 
-export default ReimbursementsSlice.reducer;
+
+export const {clearPosts} = PendingSlice.actions;
+
+export default PendingSlice.reducer;

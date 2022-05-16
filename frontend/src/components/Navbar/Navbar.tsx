@@ -30,6 +30,10 @@ export const Navbar: React.FC = () => {
                 <li className="nav-item">
                     <Link to={"/employeeHome"} className="nav-link">Home</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to={"/userProfile"} className="nav-link">Profile</Link>
+                </li>
+
             </ul>
         </nav>
     )

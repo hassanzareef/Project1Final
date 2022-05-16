@@ -21,7 +21,7 @@ export const LoginPage: React.FC = () => {
                 navigator('/employeeHome');
             } else {
                 // If they are a manager
-                //navigator('/managerHome');
+                navigator('/managerHome');
                 console.log("This person is a manager");
             }
         }
