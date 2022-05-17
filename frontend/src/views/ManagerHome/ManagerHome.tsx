@@ -37,19 +37,20 @@ export const ManagerHome: React.FC = () => {
             <div className="reimbursements-page">
                 <h1>Your Reimbursement Requests</h1>
                 <table className='table-class'>
-                    <tr className='table-row-head'>
-                        <th className='table-head'>Amount</th>
-                        <th className='table-head'>Description</th>
-                        <th className='table-head'>Status</th>
-                        <th className='table-head'>Type</th>
-                    </tr>
-                    {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {
-                    return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
-                    }) :
-                    <></>
-                    }
+                    <tbody>
+                        <tr className='table-row-head'>
+                            <th className='table-head'>Amount</th>
+                            <th className='table-head'>Description</th>
+                            <th className='table-head'>Status</th>
+                            <th className='table-head'>Type</th>
+                        </tr>
+                        {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {
+                        return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
+                        }) :
+                        <></>
+                        }
+                    </tbody>
                 </table>
-                
             </div>
         </div>
     )

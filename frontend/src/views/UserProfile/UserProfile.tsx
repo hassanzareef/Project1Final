@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { RootState, AppDispatch } from '../../Store';
 import { useNavigate } from 'react-router-dom';
-import { getUserDetails } from '../../slices/UserSlice';
-import { useParams } from 'react-router-dom';
+//import { getUserDetails } from '../../slices/UserSlice';
 
 export const UserProfile:React.FC = () => {
 
@@ -12,29 +11,33 @@ export const UserProfile:React.FC = () => {
 
     const dispatch: AppDispatch = useDispatch();
 
-    const { id } = useParams();
+    const navigator = useNavigate();
 
     useEffect(()=> {
-        console.log("Get the information about user: ", id);
-        if(id && !profile.currentProfile){
-            dispatch(getUserDetails(id));
+        if(!profile.user){
+            console.log("Navigating to login because not logged in");
+            navigator("/login");
         }
         console.log("Current App State", profile);
     },[profile]);
 
+    const goToEditProfile = (event:React.MouseEvent<HTMLButtonElement>) => {
+        navigator('/editProfile');
+    };
+
     return (
         <div>
             <Navbar />
-            <h1>Profile of {profile.currentProfile?.first} {profile.currentProfile?.last}</h1>
-            <h2>Email : {profile.currentProfile?.email}</h2>
-            <h2>Username : {profile.currentProfile?.username}</h2>
+            <h1>Profile of {profile.user?.first} {profile.user?.last}</h1>
+            <h2>Email : {profile.user?.email}</h2>
+            <h2>Username : {profile.user?.username}</h2>
             <h2>Role : {
             
-            profile.currentProfile?.role == 1 ? "Employee" : "Manager"
-            
+            profile.user?.role == 1 ? "Employee" : "Manager"
             
             }</h2>
+            <br></br>
+            <button className="edit-profile-btn" onClick={goToEditProfile}>Edit</button>
         </div>
     )
-
 }

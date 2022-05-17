@@ -7,6 +7,7 @@ import {IReimbursements} from '../../interfaces/IReimbursements';
 import { getPending } from '../../slices/PendingSlice';
 import { getResolved } from '../../slices/ResolvedSlice';
 import { Reimbursements } from '../../components/Reimbursements/Reimbursements';
+import { useState } from 'react';
 
 import './EmployeeHome.css';
 import { BADHINTS } from 'dns';
@@ -15,8 +16,6 @@ export const EmployeeHome: React.FC = () => {
     const userInfo = useSelector((state:RootState) => state.user);
     const pending = useSelector((state:RootState) => state.pending);
     const resolved = useSelector((state:RootState) => state.resolved); 
-
-
 
     const navigator = useNavigate();
     const dispatch:AppDispatch = useDispatch();
@@ -28,14 +27,23 @@ export const EmployeeHome: React.FC = () => {
             navigator("/login");
         }
         //If the user IS logged in, but we have not gotten their posts yet
-        else if(userInfo.user && !pending.pending){
-            console.log("No reimbursements Line: 26");
-            dispatch(getPending(userInfo.user.userId));
-            dispatch(getResolved(userInfo.user.userId));
+        else{
+            if(!pending.pending) {
+                console.log("Loading in pending posts");
+                dispatch(getPending());
+            }
         }
+        console.log("Userstate: ", userInfo);
+        console.log("Pending: ", pending);
+    }, [userInfo, pending.pending]);
 
-        console.log("Userstate: ", userInfo, "Reimbursements: ", pending);
-    }, [userInfo, pending.pending,resolved.resolved]);
+    useEffect(() => {
+        if(!resolved.resolved) {
+            console.log("Loading in resolved posts");
+            dispatch(getResolved());
+        }
+        console.log("Resolved: ", resolved);
+    }, [resolved.resolved]);
 
     return(
         <div>
@@ -44,34 +52,37 @@ export const EmployeeHome: React.FC = () => {
                 <h1>Your Reimbursement Requests</h1>
                 <h2> Pending </h2>
                 <table className='table-class'>
-                    <tr className='table-row-head'>
-                        <th className='table-head'>Amount</th>
-                        <th className='table-head'>Description</th>
-                        <th className='table-head'>Status</th>
-                        <th className='table-head'>Type</th>
-                    </tr>
-                    {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {
-                    return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
-                    }) :
-                    <></>
-                    }
+                    <tbody>
+                        <tr className='table-row-head'>
+                            <th className='table-head'>Amount</th>
+                            <th className='table-head'>Description</th>
+                            <th className='table-head'>Status</th>
+                            <th className='table-head'>Type</th>
+                        </tr>
+                        {pending.pending ? pending.pending.map((pen:IReimbursements) => {
+                        return <tr className='table-row'><Reimbursements {...pen} key={pen.reimbursementId} /></tr>
+                        }) :
+                        <></>
+                        }
+                    </tbody>
                 </table>
                 <h2> Resolved </h2>
                 <table className='table-class'>
-                    <tr className='table-row-head'>
-                        <th className='table-head'>Amount</th>
-                        <th className='table-head'>Description</th>
-                        <th className='table-head'>Status</th>
-                        <th className='table-head'>Type</th>
-                    </tr>
-                    {resolved.resolved ? resolved.resolved.map((reimbursements:IReimbursements) => {
-                    return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
-                    }) :
-                    <></>
-                    }
+                    <tbody>
+                        <tr className='table-row-head'>
+                            <th className='table-head'>Amount</th>
+                            <th className='table-head'>Description</th>
+                            <th className='table-head'>Status</th>
+                            <th className='table-head'>Type</th>
+                        </tr>
+                        {resolved.resolved ? resolved.resolved.map((res:IReimbursements) => {
+                        return <tr className='table-row'><Reimbursements {...res} key={res.reimbursementId} /></tr>
+                        }) :
+                        <></>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
     )
-
 }

@@ -21,11 +21,20 @@ type Login = {
     password: string
 }
 
+type userInfo = {
+    userId: number | undefined,
+    first: string,
+    last: string,
+    username: string,
+    email: string
+}
+
 export const loginUser = createAsyncThunk(
     'user/login',
     async (credentials: Login, thunkAPI) => {
 
         try{
+                axios.defaults.withCredentials = true;
                 const res = await axios.post('http://localhost:8000/users/login', credentials);
                 console.log(res.data);
                 return{
@@ -51,6 +60,29 @@ export const getUserDetails = createAsyncThunk(
     async (id: number | string, thunkAPI) => {
         try{
             const res = await axios.get("http://localhost:8000/users/read");
+
+            return {
+                userId: res.data.userId,
+                username: res.data.username,
+                password: res.data.password,
+                first: res.data.firstName,
+                last: res.data.lastName,
+                email: res.data.email,
+                role: res.data.role
+            }
+        } catch(error){
+            console.log(error);
+        }
+    }
+);
+/*
+ * 
+ */
+export const updateUserDetails = createAsyncThunk(
+    'users/put',
+    async (userInfo: userInfo, thunkAPI) => {
+        try{
+            const res = await axios.put("http://localhost:8000/users/update", userInfo);
 
             return {
                 userId: res.data.userId,
@@ -96,6 +128,19 @@ export const UserSlice = createSlice({
         builder.addCase(getUserDetails.fulfilled, (state, action) => {
             state.loading =false;
             state.currentProfile = action.payload;
+        });
+        builder.addCase(updateUserDetails.pending, (state, action)=> {
+            state.loading = true;
+        });
+        builder.addCase(updateUserDetails.fulfilled, (state, action) => {
+            //The payload in this case, is the return from our asyncThunk from above
+            state.user = action.payload;
+            state.error = false;
+            state.loading = false;
+        });
+        builder.addCase(updateUserDetails.rejected, (state, action)=> {
+            state.error = true;
+            state.loading = false;
         });
         //builder.addCase(logout.fulfilled, (state, action)=> {
         //    state.user = undefined;

@@ -16,10 +16,10 @@ const initialReimbursementsState: PendingSliceState = {
 
 export const getPending = createAsyncThunk(
   "reimbursements/get",
-  async (id:number, thunkAPI) => {
+  async (thunkAPI) => {
       try{
           axios.defaults.withCredentials = true;
-          const res = await axios.get(`http://localhost:8000/reimbursements/${id}`);
+          const res = await axios.get(`http://localhost:8000/reimbursements/pending`);
             console.log(res);
           return res.data;
       } catch (e){
