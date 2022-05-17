@@ -32,7 +32,6 @@ public class ReimbursementDriver {
 
 
         Javalin server = Javalin.create(config -> {
-            config.addStaticFiles("C:\\Users\\Dell\\Documents\\Project1Final\\Project1Final\\frontend", Location.EXTERNAL);
             config.enableCorsForAllOrigins();
         });
 

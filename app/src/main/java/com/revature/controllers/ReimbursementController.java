@@ -42,8 +42,6 @@ public class ReimbursementController {
         } else {
             int userId = (int)(ctx.req.getSession().getAttribute("id"));
 
-
-
             ctx.result(om.writeValueAsString(rs.viewPendingRequest(userId)));
             ctx.status(201);
 
@@ -106,22 +104,22 @@ public class ReimbursementController {
     };
 
     public Handler handleViewRequestById = (ctx) -> {
-        /*if (ctx.req.getSession().getAttribute("id") == null) {
+        if (ctx.req.getSession().getAttribute("id") == null) {
             ctx.status(401);
             ctx.result("You must login to create request");
         } else {
-            if(((int)ctx.req.getSession().getAttribute("role") == 2)){*/
+            if(((int)ctx.req.getSession().getAttribute("role") == 2)){
                 int id = Integer.parseInt(ctx.pathParam("id"));
                 ctx.result(om.writeValueAsString(rs.viewRequestById(id)));
                 ctx.status(201);
 
-            /*}else{
+            }else{
                 ctx.result("You are not a manager");
                 ctx.status(403);
             }
 
 
-        }*/
+        }
 
     };
 
