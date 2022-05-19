@@ -49,8 +49,10 @@ public class UserController {
             ctx.status(401);
             ctx.result("You must be logged in");
         } else {
-            User u = om.readValue(ctx.body(), User.class);
+            UpdateUserObject uuo = om.readValue(ctx.body(), UpdateUserObject.class);
+            User u = new User(uuo.username, uuo.password, uuo.first, uuo.last, uuo.email);
             u.setUserId((int)ctx.req.getSession().getAttribute("id"));
+            u.setRole((int)ctx.req.getSession().getAttribute("role"));
             System.out.println(u);
             ctx.result(om.writeValueAsString(us.updateUserInfo(u)));
         }

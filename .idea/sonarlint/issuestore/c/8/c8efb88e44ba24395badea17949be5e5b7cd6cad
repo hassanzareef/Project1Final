@@ -8,26 +8,26 @@ java:S1104"WMake handleLogin a static final constant or non-public and provide
 r
 java:S1104/"\Make handleUpdateUser a static final constant or non-public and provide accessors if needed.(¢ÓäŒ
 r
-java:S1104;"\Make handleDeleteUser a static final constant or non-public and provide accessors if needed.(ÌØ†¿
+java:S1104="\Make handleDeleteUser a static final constant or non-public and provide accessors if needed.(ÌØ†¿
 o
-java:S1104H"ZMake handleReadUser a static final constant or non-public and provide accessors if needed.(Õ–ş_
+java:S1104J"ZMake handleReadUser a static final constant or non-public and provide accessors if needed.(Õ–ş_
 t
-java:S1104R"^Make handleViewAllUsers a static final constant or non-public and provide accessors if needed.(¨ß§Ú
+java:S1104T"^Make handleViewAllUsers a static final constant or non-public and provide accessors if needed.(¨ß§Ú
 s
-java:S1104b"XMake handleLogout a static final constant or non-public and provide accessors if needed.(Ö€ãøÿÿÿÿ
+java:S1104d"XMake handleLogout a static final constant or non-public and provide accessors if needed.(Ö€ãøÿÿÿÿ
 S	java:S106"9Replace this use of System.out or System.err by a logger.(Æµ¦ıÿÿÿÿ
 G
 java:S1611"1Remove the parentheses around the "ctx" parameter(Öª‰
 V	java:S125("<This block of commented-out lines of code should be removed.(ïæ¸Îùÿÿÿÿ
 G
 java:S1611/"1Remove the parentheses around the "ctx" parameter(¢ÓäŒ
-N	java:S1066"9Replace this use of System.out or System.err by a logger.(Âæ“ú
+N	java:S1068"9Replace this use of System.out or System.err by a logger.(Âæ“ú
 G
-java:S1611;"1Remove the parentheses around the "ctx" parameter(ÌØ†¿
-V	java:S125A"<This block of commented-out lines of code should be removed.(î¾ĞÓşÿÿÿÿ
+java:S1611="1Remove the parentheses around the "ctx" parameter(ÌØ†¿
+V	java:S125C"<This block of commented-out lines of code should be removed.(î¾ĞÓşÿÿÿÿ
 F
-java:S1611H"1Remove the parentheses around the "ctx" parameter(Õ–ş_
+java:S1611J"1Remove the parentheses around the "ctx" parameter(Õ–ş_
 G
-java:S1611R"1Remove the parentheses around the "ctx" parameter(¨ß§Ú
+java:S1611T"1Remove the parentheses around the "ctx" parameter(¨ß§Ú
 L
-java:S1611b"1Remove the parentheses around the "ctx" parameter(Ö€ãøÿÿÿÿ
+java:S1611d"1Remove the parentheses around the "ctx" parameter(Ö€ãøÿÿÿÿ

@@ -36,6 +36,7 @@ public class Reimbursements{
         this.amount = amount;
         this.description = description;
         this.reimbursementType = reimbursementType;
+        this.reimbursementStatus = 1;
     }
 
     public int getReimbursementId() {

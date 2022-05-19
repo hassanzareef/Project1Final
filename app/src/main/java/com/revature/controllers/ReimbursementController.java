@@ -27,10 +27,8 @@ public class ReimbursementController {
             int userId = (int)(ctx.req.getSession().getAttribute("id"));
             RequestObject r = om.readValue(ctx.body(), RequestObject.class);
 
-            rs.createRequest(userId, r.amount, r.description, r.type);
-            ctx.result("Request Generated");
+            ctx.result(om.writeValueAsString(rs.createRequest(userId, r.amount, r.description, r.type)));
             ctx.status(201);
-
         }
 
     };

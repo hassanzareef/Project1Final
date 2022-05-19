@@ -15,8 +15,8 @@ public class ReimbursementService {
         this.rd = rd;
     }
 
-    public void createRequest(int author, double amount, String description, int type){
-        rd.createRequest(author, amount,description, type);
+    public Reimbursements createRequest(int author, double amount, String description, int type){
+        return rd.createRequest(author, amount,description, type);
     }
 
     public List<Reimbursements> viewPendingRequest(int id){
