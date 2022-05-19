@@ -8,7 +8,8 @@ interface UserSliceState {
     loading: boolean,
     error: boolean,
     user?: IUser,
-    currentProfile?: IUser
+    currentProfile?: IUser,
+    allUsers?: IUser[]
 }
 
 const initialUserState: UserSliceState = {
@@ -22,10 +23,10 @@ type Login = {
 }
 
 type userInfo = {
-    userId: number | undefined,
     first: string,
     last: string,
     username: string,
+    password: string,
     email: string
 }
 
@@ -65,8 +66,8 @@ export const getUserDetails = createAsyncThunk(
                 userId: res.data.userId,
                 username: res.data.username,
                 password: res.data.password,
-                first: res.data.firstName,
-                last: res.data.lastName,
+                first: res.data.first,
+                last: res.data.last,
                 email: res.data.email,
                 role: res.data.role
             }
@@ -79,17 +80,16 @@ export const getUserDetails = createAsyncThunk(
  * 
  */
 export const updateUserDetails = createAsyncThunk(
-    'users/put',
+    'users/post',
     async (userInfo: userInfo, thunkAPI) => {
         try{
-            const res = await axios.put("http://localhost:8000/users/update", userInfo);
-
+            const res = await axios.post("http://localhost:8000/users/update", userInfo);
             return {
                 userId: res.data.userId,
                 username: res.data.username,
                 password: res.data.password,
-                first: res.data.firstName,
-                last: res.data.lastName,
+                first: res.data.first,
+                last: res.data.last,
                 email: res.data.email,
                 role: res.data.role
             }
@@ -98,6 +98,30 @@ export const updateUserDetails = createAsyncThunk(
         }
     }
 );
+
+export const viewAllUsers = createAsyncThunk(
+    'users/viewall',
+    async (thunkAPI) => {
+        try{
+            const res = await axios.get("http://localhost:8000/users/viewall");
+            return res.data;
+        } catch(error){
+            console.log(error);
+        }
+    }
+);
+
+export const logout = createAsyncThunk(
+    "user/logout",
+    async (thunkAPI) => {
+        try{
+            axios.defaults.withCredentials = true;
+            const res = axios.get("http://localhost:8000/users/logout");
+        } catch(e){
+            console.log(e);
+        }
+    }
+)
 
 export const UserSlice = createSlice({
     name: "user",
@@ -134,6 +158,7 @@ export const UserSlice = createSlice({
         });
         builder.addCase(updateUserDetails.fulfilled, (state, action) => {
             //The payload in this case, is the return from our asyncThunk from above
+            console.log(action.payload);
             state.user = action.payload;
             state.error = false;
             state.loading = false;
@@ -142,9 +167,23 @@ export const UserSlice = createSlice({
             state.error = true;
             state.loading = false;
         });
-        //builder.addCase(logout.fulfilled, (state, action)=> {
-        //    state.user = undefined;
-        //})
+        builder.addCase(logout.fulfilled, (state, action)=> {
+            state.user = undefined;
+        });
+        builder.addCase(viewAllUsers.pending, (state, action)=> {
+            state.loading = true;
+        });
+
+        builder.addCase(viewAllUsers.fulfilled, (state, action) => {
+            state.allUsers = action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+        builder.addCase(viewAllUsers.rejected, (state, action) => {
+            state.error = true;
+            state.loading = false;
+        });
     }
 })
 

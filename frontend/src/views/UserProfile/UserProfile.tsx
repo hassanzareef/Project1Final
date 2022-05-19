@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar } from '../../components/Navbar/Navbar';
+import { MNavbar } from '../../components/Navbar/MNavbar';
 import { RootState, AppDispatch } from '../../Store';
 import { useNavigate } from 'react-router-dom';
 //import { getUserDetails } from '../../slices/UserSlice';
@@ -27,7 +28,7 @@ export const UserProfile:React.FC = () => {
 
     return (
         <div>
-            <Navbar />
+            {profile.user?.role == 1 ? <Navbar /> : <MNavbar /> }
             <h1>Profile of {profile.user?.first} {profile.user?.last}</h1>
             <h2>Email : {profile.user?.email}</h2>
             <h2>Username : {profile.user?.username}</h2>

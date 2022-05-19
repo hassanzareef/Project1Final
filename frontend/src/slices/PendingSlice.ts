@@ -14,6 +14,12 @@ const initialReimbursementsState: PendingSliceState = {
     error: false
 };
 
+type reimbursementInfo = {
+    amount: number,
+    description: string,
+    type: number
+}
+
 export const getPending = createAsyncThunk(
   "reimbursements/getp",
   async (thunkAPI) => {
@@ -28,29 +34,74 @@ export const getPending = createAsyncThunk(
   }  
 );
 
-
 export const createReimbursement = createAsyncThunk(
     "reimbursements/create",
-    async (newReimbursements:IReimbursements, thunkAPI) => {
+    async (reimbursementInfo:reimbursementInfo, thunkAPI) => {
         try{
             axios.defaults.withCredentials = true;
-            const res = await axios.post("http://localhost:8000/reimbursements/", newReimbursements);
+            const res = await axios.post("http://localhost:8000/reimbursements/create", reimbursementInfo);
 
-            return newReimbursements;
+            return {
+                reimbursementId: res.data.reimbursementId,
+                amount: res.data.amount,
+                subDate: res.data.subDate,
+                description: res.data.description,
+                reimbursementAuthor: res.data.reimbursementAuthor,
+                reimbursementStatus: res.data.reimbursementStatus,
+                reimbursementType: res.data.reimbursementType
+            }
         } catch (e){
             console.log(e);
         }
     }
 )
 
-export const getAllReimbursements = createAsyncThunk(
-    "reimbursements/get",
+export const getAllPending = createAsyncThunk(
+    "reimbursements/allpending",
     async (thunkAPI) => {
         try{
             axios.defaults.withCredentials = true;
             const res = await axios.get(`http://localhost:8000/reimbursements/allpending`);
-              console.log(res);
             return res.data;
+        } catch (e){
+            console.log(e);
+        }
+    }  
+  );
+
+  export const getReimbursementsById = createAsyncThunk(
+    "reimbursements/getById",
+    async (id: number, thunkAPI) => {
+        try{
+            axios.defaults.withCredentials = true;
+            const res = await axios.get(`http://localhost:8000/reimbursements/${id}`);
+            return res.data;
+        } catch (e){
+            console.log(e);
+        }
+    }  
+  );
+
+  export const approveById = createAsyncThunk(
+    "reimbursements/approve",
+    async (id: number, thunkAPI) => {
+        try{
+            axios.defaults.withCredentials = true;
+            const res = await axios.put(`http://localhost:8000/reimbursements/approve/${id}`);
+            return {};
+        } catch (e){
+            console.log(e);
+        }
+    }  
+  );
+
+  export const denyById = createAsyncThunk(
+    "reimbursements/deny",
+    async (id: number, thunkAPI) => {
+        try{
+            axios.defaults.withCredentials = true;
+            const res = await axios.put(`http://localhost:8000/reimbursements/deny/${id}`);
+            return {};
         } catch (e){
             console.log(e);
         }
@@ -61,7 +112,7 @@ export const PendingSlice = createSlice({
     name: 'pending',
     initialState: initialReimbursementsState,
     reducers: {
-        clearPosts: (state) => {
+        clearPending: (state) => {
             state.pending = undefined
         }
     },
@@ -85,13 +136,43 @@ export const PendingSlice = createSlice({
                 state.pending = [action.payload, ...state.pending];
             }
         });
+        builder.addCase(createReimbursement.rejected, (state, action) => {
+            state.error = true;
+            state.loading = false;
+        });
+        builder.addCase(getReimbursementsById.pending, (state, action)=> {
+            state.loading = true;
+        });
 
-       
+        builder.addCase(getReimbursementsById.fulfilled, (state, action) => {
+            state.pending = action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+        builder.addCase(getReimbursementsById.rejected, (state, action) => {
+            state.error = true;
+            state.loading = false;
+        });
+        builder.addCase(getAllPending.pending, (state, action)=> {
+            state.loading = true;
+        });
+
+        builder.addCase(getAllPending.fulfilled, (state, action) => {
+            state.pending = action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+        builder.addCase(getAllPending.rejected, (state, action) => {
+            state.error = true;
+            state.loading = false;
+        });
     }
 });
 
 
 
-export const {clearPosts} = PendingSlice.actions;
+export const {clearPending} = PendingSlice.actions;
 
 export default PendingSlice.reducer;

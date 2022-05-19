@@ -14,32 +14,35 @@ export const UpdateForm:React.FC = () => {
     const [last, setLast] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-    const userId = profile.user?.userId;
+    const [password, setPassword] = useState<string>("");
 
     const handleUpdate = (event:React.ChangeEvent<HTMLInputElement>) => {
         if(event.target.name === "first") {
             setFirst(event.target.value);
         }
-        else if(event.target.name === "first") {
+        else if(event.target.name === "last") {
             setLast(event.target.value);
         } 
-        else if(event.target.name === "first") {
+        else if(event.target.name === "username") {
             setUsername(event.target.value);
         } 
-        else {
+        else if(event.target.name === "email") {
             setEmail(event.target.value);
-        }
+        } 
+        else if(event.target.name === "password") {
+            setPassword(event.target.value);
+        } 
     }
 
     const submitProfile = (event:React.MouseEvent<HTMLButtonElement>) => {
         let userInfo = {
-            userId,
             first,
             last, 
             username,
+            password,
             email
         }
-        dispatch(updateUserDetails(userInfo))
+        dispatch(updateUserDetails(userInfo));
     };
 
     return (
@@ -52,6 +55,8 @@ export const UpdateForm:React.FC = () => {
                 <input autoComplete='off' required type="text" name="last" placeholder='Last Name' onChange={handleUpdate}></input>
                 <h4>Username: </h4>
                 <input autoComplete='off' required type="text" name="username" placeholder='Usename' onChange={handleUpdate}></input>
+                <h4>Password: </h4>
+                <input autoComplete='off' required type="password" name="password" placeholder='Password' onChange={handleUpdate}></input>
                 <h4>Email: </h4>
                 <input autoComplete='off' required type="text" name="email" placeholder='Email' onChange={handleUpdate}></input>
             </form>

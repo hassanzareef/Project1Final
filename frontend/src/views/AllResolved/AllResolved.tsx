@@ -3,18 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../Store';
 import { useNavigate } from 'react-router-dom';
 import {IReimbursements} from '../../interfaces/IReimbursements';
-import { getReimbursementsById } from '../../slices/PendingSlice';
 import { Reimbursements } from '../../components/Reimbursements/Reimbursements';
-import { UserProfile } from '../UserProfile/UserProfile';
+import { getAllResolved } from '../../slices/ResolvedSlice';
+import { MNavbar } from '../../components/Navbar/MNavbar';
 
 //import './ManagerHome.css';
-export const ManagerHome: React.FC = () => {
+export const AllResolved: React.FC = () => {
 
     const userInfo = useSelector((state:RootState) => state.user);
-    const pending = useSelector((state:RootState) => state.pending);
+    const resolved = useSelector((state:RootState) => state.resolved);
     
-    const [employeeId, setEmployeeId] = useState<number>(0);
-
     const navigator = useNavigate();
     const dispatch:AppDispatch = useDispatch();
 
@@ -23,25 +21,16 @@ export const ManagerHome: React.FC = () => {
         if(!userInfo.user){
             console.log("Navigating to login because not logged in");
             navigator("/login");
+        } else if (!resolved.resolved) {
+            dispatch(getAllResolved())
         }
         console.log("Userstate: ", userInfo);
-    }, [userInfo]);
-
-    const handleId = (event:React.ChangeEvent<HTMLInputElement>) => {
-        setEmployeeId(parseInt(event.target.value));
-    }
-
-    const searchRequest = (event:React.MouseEvent<HTMLButtonElement>) => {
-        dispatch(getReimbursementsById(employeeId));
-    };
+    }, [userInfo, resolved.resolved]);
 
     return(
         <>
-            <UserProfile />
+            <MNavbar />
             <div className="manager-page">
-                <h1>Enter Employee Username</h1>
-                <input autoComplete='off' required type="text" name="employeeId" placeholder='Employee Username' onChange={handleId}></input>
-                <button className="submit-search-btn" onClick={searchRequest}>Search</button>
                 <table className='table-class'>
                     <tbody>
                         <tr className='table-row-head'>
@@ -50,7 +39,7 @@ export const ManagerHome: React.FC = () => {
                             <th className='table-head'>Status</th>
                             <th className='table-head'>Type</th>
                         </tr>
-                        {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {
+                        {resolved.resolved ? resolved.resolved.map((reimbursements:IReimbursements) => {
                         return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
                         }) :
                         <></>
@@ -60,5 +49,4 @@ export const ManagerHome: React.FC = () => {
             </div>
         </>
     )
-
 }

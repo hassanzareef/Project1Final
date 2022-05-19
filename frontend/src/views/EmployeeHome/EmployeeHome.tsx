@@ -10,7 +10,6 @@ import { Reimbursements } from '../../components/Reimbursements/Reimbursements';
 import { useState } from 'react';
 
 import './EmployeeHome.css';
-import { BADHINTS } from 'dns';
 export const EmployeeHome: React.FC = () => {
 
     const userInfo = useSelector((state:RootState) => state.user);
@@ -30,7 +29,6 @@ export const EmployeeHome: React.FC = () => {
             if(!pending.pending) {
                 console.log("Loading in pending posts");
                 dispatch(getPending());
-                
             }
 
             if(!resolved.resolved) {

@@ -1,9 +1,27 @@
 import React from 'react';
 import { IReimbursements } from '../../interfaces/IReimbursements';
+import { AppDispatch } from '../../Store';
+import { useDispatch } from 'react-redux';
+import { denyById, approveById, clearPending, getAllPending } from '../../slices/PendingSlice';
 
 import './Reimbursements.css';
+export const ApproveDenyButtons:React.FC<IReimbursements> = (reimbursements:IReimbursements) => {
 
-export const Reimbursements:React.FC<IReimbursements> = (reimbursements:IReimbursements) => {
+    const dispatch: AppDispatch = useDispatch();
+
+    const approveRequest = (event:React.MouseEvent<HTMLButtonElement>) => {
+        console.log("Approving request");
+        dispatch(approveById(reimbursements.reimbursementId));
+        dispatch(clearPending());
+        dispatch(getAllPending());
+    };
+
+    const denyRequests = (event:React.MouseEvent<HTMLButtonElement>) => {
+        console.log("Approving request");
+        dispatch(denyById(reimbursements.reimbursementId));
+        dispatch(clearPending());
+        dispatch(getAllPending());
+    };
 
     return(
         <>
@@ -51,6 +69,10 @@ export const Reimbursements:React.FC<IReimbursements> = (reimbursements:IReimbur
                     :
                     <></>
                 }</td>
+                <td>
+                    <button className="approve-btn" onClick={approveRequest}>Approve</button>
+                    <button className="deny-btn" onClick={denyRequests}>Deny</button>
+                </td>
         </>
     )
 

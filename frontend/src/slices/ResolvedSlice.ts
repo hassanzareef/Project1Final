@@ -28,28 +28,12 @@ export const getResolved = createAsyncThunk(
   }  
 );
 
-
-export const createReimbursement = createAsyncThunk(
-    "reimbursements/create",
-    async (newReimbursements:IReimbursements, thunkAPI) => {
-        try{
-            axios.defaults.withCredentials = true;
-            const res = await axios.post("http://localhost:8000/reimbursements/", newReimbursements);
-
-            return newReimbursements;
-        } catch (e){
-            console.log(e);
-        }
-    }
-)
-
-export const getAllReimbursements = createAsyncThunk(
-    "reimbursements/get",
+export const getAllResolved = createAsyncThunk(
+    "reimbursements/allresolved",
     async (thunkAPI) => {
         try{
             axios.defaults.withCredentials = true;
-            const res = await axios.get(`http://localhost:8000/reimbursements/allpending`);
-              console.log(res);
+            const res = await axios.get(`http://localhost:8000/reimbursements/allresolved`);
             return res.data;
         } catch (e){
             console.log(e);
@@ -61,7 +45,7 @@ export const ResolvedSlice = createSlice({
     name: 'resolved',
     initialState: initialReimbursementsState,
     reducers: {
-        clearPosts: (state) => {
+        clearResolved: (state) => {
             state.resolved = undefined
         }
     },
@@ -80,13 +64,26 @@ export const ResolvedSlice = createSlice({
             state.error = true;
             state.loading = false;
         });
+        builder.addCase(getAllResolved.pending, (state, action)=> {
+            state.loading = true;
+        });
 
+        builder.addCase(getAllResolved.fulfilled, (state, action) => {
+            state.resolved = action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+        builder.addCase(getAllResolved.rejected, (state, action) => {
+            state.error = true;
+            state.loading = false;
+        });
        
     }
 });
 
 
 
-export const {clearPosts} = ResolvedSlice.actions;
+export const {clearResolved} = ResolvedSlice.actions;
 
 export default ResolvedSlice.reducer;
