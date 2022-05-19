@@ -33,6 +33,15 @@ export const Navbar: React.FC = () => {
                 <li className="nav-item">
                     <Link to={"/userProfile"} className="nav-link">Profile</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to={"/pendingPage"} className="nav-link">Pending Requests</Link>
+                </li>
+                <li className="nav-item">
+                    <Link to={"/resolvedPage"} className="nav-link">Resolved Requests</Link>
+                </li>
+                <li className="nav-item">
+                    <Link to={"/createPage"} className="nav-link">Resolved Requests</Link>
+                </li>
             </ul>
         </nav>
     )

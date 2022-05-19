@@ -15,7 +15,7 @@ const initialReimbursementsState: PendingSliceState = {
 };
 
 export const getResolved = createAsyncThunk(
-  "reimbursements/get",
+  "reimbursements/getr",
   async (thunkAPI) => {
       try{
           axios.defaults.withCredentials = true;
