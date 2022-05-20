@@ -8,7 +8,7 @@ import { getPending } from '../../slices/PendingSlice';
 import { getResolved } from '../../slices/ResolvedSlice';
 import { Reimbursements } from '../../components/Reimbursements/Reimbursements';
 import { useState } from 'react';
-
+import '../../Table.css';
 import './EmployeeHome.css';
 export const EmployeeHome: React.FC = () => {
 
@@ -54,6 +54,8 @@ export const EmployeeHome: React.FC = () => {
                             <th className='table-head'>Description</th>
                             <th className='table-head'>Status</th>
                             <th className='table-head'>Type</th>
+                            <th className='table-head'>Submitted Date</th>
+
                         </tr>
                         {pending.pending ? pending.pending.map((pen:IReimbursements) => {
                         return <tr className='table-row'><Reimbursements {...pen} key={pen.reimbursementId} /></tr>
@@ -70,6 +72,9 @@ export const EmployeeHome: React.FC = () => {
                             <th className='table-head'>Description</th>
                             <th className='table-head'>Status</th>
                             <th className='table-head'>Type</th>
+                            <th className='table-head'>Submitted Date</th>
+                            <th className='table-head'>Resolver ID</th>
+                            <th className='table-head'>Resolved Date</th>
                         </tr>
                         {resolved.resolved ? resolved.resolved.map((res:IReimbursements) => {
                         return <tr className='table-row'><Reimbursements {...res} key={res.reimbursementId} /></tr>

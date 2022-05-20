@@ -20,13 +20,13 @@ public class Reimbursements{
     }
 
 
-    public Reimbursements(int reimbursementId, double amount, Date subDate, Date resDate, String description, int reimbursmentAuthor, int reimbursementResolver, int reimbursementStatus, int reimbursementType) {
+    public Reimbursements(int reimbursementId, double amount, Date subDate, Date resDate, String description, int reimbursementAuthor, int reimbursementResolver, int reimbursementStatus, int reimbursementType) {
         this.reimbursementId = reimbursementId;
         this.amount = amount;
         this.subDate = subDate;
         this.resDate = resDate;
         this.description = description;
-        this.reimbursementAuthor = reimbursmentAuthor;
+        this.reimbursementAuthor = reimbursementAuthor;
         this.reimbursementResolver = reimbursementResolver;
         this.reimbursementStatus = reimbursementStatus;
         this.reimbursementType = reimbursementType;
@@ -79,12 +79,12 @@ public class Reimbursements{
         this.description = description;
     }
 
-    public int getReimbursmentAuthor() {
+    public int getReimbursementAuthor() {
         return reimbursementAuthor;
     }
 
-    public void setReimbursmentAuthor(int reimbursmentAuthor) {
-        this.reimbursementAuthor = reimbursmentAuthor;
+    public void setReimbursementAuthor(int reimbursementAuthor) {
+        this.reimbursementAuthor = reimbursementAuthor;
     }
 
     public int getReimbursementResolver() {
@@ -119,7 +119,7 @@ public class Reimbursements{
                 ", subDate=" + subDate +
                 ", resDate=" + resDate +
                 ", description='" + description + '\'' +
-                ", reimbursmentAuthor=" + reimbursementAuthor +
+                ", reimbursementAuthor=" + reimbursementAuthor +
                 ", reimbursementResolver=" + reimbursementResolver +
                 ", reimbursementStatus=" + reimbursementStatus +
                 ", reimbursementType=" + reimbursementType +

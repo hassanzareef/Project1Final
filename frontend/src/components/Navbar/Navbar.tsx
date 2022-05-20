@@ -24,25 +24,29 @@ export const Navbar: React.FC = () => {
         dispatch(clearResolved());
     }
 
+    const handleNavigate = () => {
+        console.log("entering navigate");
+    dispatch(clearPending());
+    dispatch(clearResolved());
+}
+
     const user = useSelector((state:RootState) => state.user.user);
 
     return(
         <nav className="navbar">
             <ul className='nav-menu'>
                 <li className="nav-item">
-                    <Link to={"/employeeHome"} className="nav-link">Home</Link>
+                    <Link to={"/employeeHome"} onClick={handleNavigate} className="nav-link">Home</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to={"/userProfile"} className="nav-link">Profile</Link>
+                    <Link to={"/userProfile"} onClick={handleNavigate} className="nav-link">Profile</Link>
                 </li>
                 
                 <li className="nav-item">
-                    <Link to={"/createPage"} className="nav-link">Create Requests</Link>
+                    <Link to={"/createPage"} onClick={handleNavigate} className="nav-link">Create Requests</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to={"/loginPage"} className="nav-link"> 
-                        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-                    </Link>
+                    <Link to={"/loginPage"} onClick={handleLogout} className="nav-link">Logout</Link>
                 </li>
             </ul>
         </nav>

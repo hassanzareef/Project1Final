@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../Store';
 import { useState } from 'react';
 import { updateUserDetails } from '../../slices/UserSlice';
-
+import { useNavigate } from 'react-router-dom';
+import '../../Table.css';
 export const UpdateForm:React.FC = () => {
 
     const profile = useSelector((state:RootState) => state.user);
 
     const dispatch: AppDispatch = useDispatch();
+    
+    const navigator = useNavigate();
 
     const [first, setFirst] = useState<string>("");
     const [last, setLast] = useState<string>("");
@@ -43,12 +46,13 @@ export const UpdateForm:React.FC = () => {
             email
         }
         dispatch(updateUserDetails(userInfo));
+        navigator('/userProfile');
     };
 
     return (
-        <div>
+        <div className="edit-form">
             <form className="edit">
-                {profile.error ? <h2>Screw You</h2> : <></>}
+                {profile.error ? <h2>Error Updating</h2> : <></>}
                 <h4>First Name: </h4>
                 <input autoComplete='off' required type="text" name="first" placeholder='First Name' onChange={handleUpdate}></input>
                 <h4>Last Name: </h4>

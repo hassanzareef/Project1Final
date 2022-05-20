@@ -3,11 +3,16 @@ import { IReimbursements } from '../../interfaces/IReimbursements';
 import { AppDispatch } from '../../Store';
 import { useDispatch } from 'react-redux';
 import { denyById, approveById, clearPending, getAllPending } from '../../slices/PendingSlice';
-
+import '../../Table.css';
 import './Reimbursements.css';
 export const ApproveDenyButtons:React.FC<IReimbursements> = (reimbursements:IReimbursements) => {
 
     const dispatch: AppDispatch = useDispatch();
+
+    function date() : string{
+        let d = new Date(reimbursements.subDate);
+       return d.toLocaleDateString();
+    }
 
     const approveRequest = (event:React.MouseEvent<HTMLButtonElement>) => {
         console.log("Approving request");
@@ -25,6 +30,7 @@ export const ApproveDenyButtons:React.FC<IReimbursements> = (reimbursements:IRei
 
     return(
         <>
+            <td className='table-cell'>{reimbursements.reimbursementAuthor}</td>
             <td className='table-cell'>${reimbursements.amount}</td>
             <td className='table-cell'>{reimbursements.description}</td>
             <td className='table-cell'>{
@@ -35,7 +41,7 @@ export const ApproveDenyButtons:React.FC<IReimbursements> = (reimbursements:IRei
                 } 
                 {
                     (reimbursements.reimbursementStatus == 2) ?
-                        <p>Resolved</p>
+                        <p>Approved</p>
                     :
                     <></>
                 } 
@@ -69,6 +75,7 @@ export const ApproveDenyButtons:React.FC<IReimbursements> = (reimbursements:IRei
                     :
                     <></>
                 }</td>
+                 <td className='table-cell'>{date()}</td>
                 <td>
                     <button className="approve-btn" onClick={approveRequest}>Approve</button>
                     <button className="deny-btn" onClick={denyRequests}>Deny</button>

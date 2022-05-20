@@ -116,7 +116,7 @@ export const logout = createAsyncThunk(
     async (thunkAPI) => {
         try{
             axios.defaults.withCredentials = true;
-            const res = axios.get("http://localhost:8000/users/logout");
+            const res = axios.put("http://localhost:8000/users/logout");
         } catch(e){
             console.log(e);
         }

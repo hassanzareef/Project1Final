@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IReimbursements } from '../../interfaces/IReimbursements';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Store';
+import '../../Table.css';
 import './Reimbursements.css';
 
 export const Reimbursements:React.FC<IReimbursements> = (reimbursements:IReimbursements) => {
 
+    const profile = useSelector((state:RootState) => state.user);
+
+    function date() : string{
+        let d = new Date(reimbursements.subDate);
+       return d.toLocaleDateString();
+    }
+    function dateR() : string{
+        if(reimbursements.resDate){
+            let d = new Date(reimbursements.resDate);
+            return d.toLocaleDateString();
+        }
+        return "";
+        }
+        
+      
+
     return(
         <>
+             {profile.user?.role == 2?  <td className='table-cell'>{reimbursements.reimbursementAuthor}</td> : <></> }
             <td className='table-cell'>${reimbursements.amount}</td>
             <td className='table-cell'>{reimbursements.description}</td>
             <td className='table-cell'>{
@@ -17,7 +36,7 @@ export const Reimbursements:React.FC<IReimbursements> = (reimbursements:IReimbur
                 } 
                 {
                     (reimbursements.reimbursementStatus == 2) ?
-                        <p>Resolved</p>
+                        <p>Approved</p>
                     :
                     <></>
                 } 
@@ -51,6 +70,12 @@ export const Reimbursements:React.FC<IReimbursements> = (reimbursements:IReimbur
                     :
                     <></>
                 }</td>
+                <td className='table-cell'>{date()}</td>
+                {reimbursements.reimbursementStatus != 1?   <td className='table-cell'>{reimbursements.reimbursementResolver}</td> : <></> }
+                {reimbursements.reimbursementStatus != 1?   <td className='table-cell'>{dateR()}</td> : <></> }
+
+
+
         </>
     )
 

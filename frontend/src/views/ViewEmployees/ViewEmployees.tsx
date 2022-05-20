@@ -7,7 +7,7 @@ import { viewAllUsers } from '../../slices/UserSlice';
 import { IUser } from '../../interfaces/IUser';
 import { UserList } from '../../components/UserList/UserList';
 import { MNavbar } from '../../components/Navbar/MNavbar';
-
+import '../../Table.css';
 //import './ManagerHome.css';
 export const ViewEmployees: React.FC = () => {
 

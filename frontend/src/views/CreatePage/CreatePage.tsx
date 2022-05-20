@@ -5,6 +5,7 @@ import { RootState, AppDispatch } from '../../Store';
 import { useNavigate } from 'react-router-dom';
 import { CreateForm } from '../../components/CreateForm/CreateForm';
 import { useState } from 'react';
+import '../../Table.css';
 
 //import './EmployeeHome.css';
 export const CreatePage: React.FC = () => {
@@ -29,7 +30,7 @@ export const CreatePage: React.FC = () => {
 
    
     return(
-        <div>
+        <div className="center">
             <Navbar />
             <CreateForm />
         </div>

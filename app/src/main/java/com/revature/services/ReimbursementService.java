@@ -39,11 +39,11 @@ public class ReimbursementService {
         return rd.viewRequestById(id);
     }
 
-    public void approveRequest(int id){
-        rd.approveRequest(id);
+    public void approveRequest(int id, int resolver){
+        rd.approveRequest(id, resolver);
     }
 
-    public void denyRequest(int id){
-        rd.denyRequest(id);
+    public void denyRequest(int id, int resolver){
+        rd.denyRequest(id, resolver);
     }
 }

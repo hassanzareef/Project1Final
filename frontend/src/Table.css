@@ -1,0 +1,126 @@
+:root {
+    --bg: #6E8898;
+    --dark: #2E5266;
+    --btn-blue: #9FB1BC;
+    --accent: #E2C044;
+    --text-white: #D3D0CB;
+}
+
+.table-class{
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top : 1rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    
+}
+
+.manager-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top : 1rem;
+    height: 100%;
+    background: var(--dark);
+
+
+}
+.table-cell{
+    background: var(--text-white);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#root{
+    background: var(--dark);
+    height: 100%;
+ 
+    padding-bottom: 100%;
+
+}
+
+.submit-search-btn{
+
+    background: var(--accent);
+}
+
+.edit-profile-btn{
+    background: var(--accent);
+}
+
+.manager2-page{
+    
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.edit-form{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: 2px solid var(--text-white);
+    border-radius: 5px;
+    width: fit-content;
+    margin-left: 35rem;
+    margin-right: 35rem;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.center{
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.edit{
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-profile-btn{
+    background: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.submit-request-btn{
+    background: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.login-page{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.loginpls{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    border: 2px solid var(--text-white);
+    border-radius: 5px;
+    width: fit-content;
+    margin-left: 35rem;
+    margin-right: 35rem;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.login-button{
+    background: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.input-div{
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}

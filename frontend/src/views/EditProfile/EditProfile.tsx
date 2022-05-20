@@ -5,6 +5,8 @@ import { RootState, AppDispatch } from '../../Store';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UpdateForm } from '../../components/UpdateForm/UpdateForm';
+import { MNavbar } from '../../components/Navbar/MNavbar';
+import '../../Table.css';
 
 export const EditProfile:React.FC = () => {
 
@@ -12,23 +14,19 @@ export const EditProfile:React.FC = () => {
 
     const navigator = useNavigate();
 
-    let firstTime = true;
+    //let firstTime = true;
 
     useEffect(()=> {
         if(!profile.user){
             console.log("Navigating to login because not logged in");
             navigator("/login");
         }
-        console.log("Current App State", profile);
-        if(!profile.error && profile.user && !firstTime){
-            navigator('/userProfile');
-        }
-        firstTime = false;
+
     },[profile]);
 
     return (
-        <div>
-            <Navbar />
+        <div className="center">
+            {profile.user?.role == 1? <Navbar /> : <MNavbar/> }
             <UpdateForm />
         </div>
     )

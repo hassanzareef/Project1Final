@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../Store';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '../../components/LoginForm/LoginForm';
+import '../../Table.css';
 
 export const LoginPage: React.FC = () => {
 
@@ -29,7 +30,7 @@ export const LoginPage: React.FC = () => {
 
     return(
         <div className= "login-page">
-            <h1>In Login Page</h1>
+            <h1 className = "login-page">Login Page</h1>
             {userState.error ? <h2 className="login-error">Username or password incorrect</h2> : <></>}
             <Login/>;
         </div>

@@ -17,9 +17,9 @@ public interface IReimbursementDao {
 
     public List<Reimbursements> viewRequestById(int id);
 
-    public void approveRequest(int id);
+    public void approveRequest(int id, int resolver);
 
-    public void denyRequest(int id);
+    public void denyRequest(int id, int resolver);
 
 
 

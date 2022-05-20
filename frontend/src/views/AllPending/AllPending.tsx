@@ -6,7 +6,7 @@ import {IReimbursements} from '../../interfaces/IReimbursements';
 import { getAllPending } from '../../slices/PendingSlice';
 import { ApproveDenyButtons } from '../../components/Reimbursements/ApproveDenyButtons';
 import { MNavbar } from '../../components/Navbar/MNavbar';
-
+import '../../Table.css';
 //import './ManagerHome.css';
 export const AllPending: React.FC = () => {
 
@@ -24,6 +24,7 @@ export const AllPending: React.FC = () => {
         } else if (!pending.pending) {
             dispatch(getAllPending())
         }
+        console.log("Pending:" , pending.pending);
         console.log("Userstate: ", userInfo);
     }, [userInfo, pending.pending]);
 
@@ -34,10 +35,12 @@ export const AllPending: React.FC = () => {
                 <table className='table-class'>
                     <tbody>
                         <tr className='table-row-head'>
+                            <th className='table-head'>Author ID</th>
                             <th className='table-head'>Amount</th>
                             <th className='table-head'>Description</th>
                             <th className='table-head'>Status</th>
                             <th className='table-head'>Type</th>
+                            <th className='table-head'>Submitted Date</th>
                             <th className='table-head'>Approve / Deny</th>
                         </tr>
                         {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {

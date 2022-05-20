@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser, toggleError } from '../../slices/UserSlice';
 import { AppDispatch } from '../../Store';
-
+import '../../Table.css';
 export const Login: React.FC = () => {
 
     const [username, setUsername] = useState<string>("");
@@ -30,9 +30,10 @@ export const Login: React.FC = () => {
     return(
         <div className="login">
             <div className="text-container">
-                <h1 className="login-header">Welcome to Reimbursment Center</h1>
-                <h2 className="login-header">Sign in to get $$$</h2>
+                <h1 className="login-page">Welcome to Reimbursement Center</h1>
+                <h2 className="login-page">Sign in to get $$$</h2>
             </div>
+            <div className= "loginpls">
             <form className="login-form">
                 <div className="input-div">
                     <h4 className="input-h4">Please Enter Username</h4>
@@ -44,6 +45,7 @@ export const Login: React.FC = () => {
                 </div>
             </form>
             <button className="login-button" onClick={handleLogin}>Login</button>
+            </div>
         </div>
     )
 

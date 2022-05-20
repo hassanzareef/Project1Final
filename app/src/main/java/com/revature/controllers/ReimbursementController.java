@@ -128,7 +128,8 @@ public class ReimbursementController {
         } else {
             if(((int)ctx.req.getSession().getAttribute("role") == 2)){
                 int id = Integer.parseInt(ctx.pathParam("id"));
-                rs.approveRequest(id);
+                int resolver = (int)ctx.req.getSession().getAttribute("id");
+                rs.approveRequest(id, resolver);
                 ctx.status(201);
                 ctx.result("Request Approved");
 
@@ -149,7 +150,8 @@ public class ReimbursementController {
         } else {
             if(((int)ctx.req.getSession().getAttribute("role") == 2)){
                 int id = Integer.parseInt(ctx.pathParam("id"));
-                rs.denyRequest(id);
+                int resolver = (int)ctx.req.getSession().getAttribute("id");
+                rs.denyRequest(id, resolver);
                 ctx.status(201);
                 ctx.result("Request Denied");
 

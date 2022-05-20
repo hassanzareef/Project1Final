@@ -62,7 +62,9 @@ export const getAllPending = createAsyncThunk(
         try{
             axios.defaults.withCredentials = true;
             const res = await axios.get(`http://localhost:8000/reimbursements/allpending`);
+            console.log(res.data);
             return res.data;
+            
         } catch (e){
             console.log(e);
         }

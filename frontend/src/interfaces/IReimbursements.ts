@@ -7,8 +7,8 @@ export interface IReimbursements {
     subDate: Date,
     resDate?: Date,
     description: string,
-    reimbursementAuthor: IUser,
-    reimbursementResolver?: IUser,
+    reimbursementAuthor: string,
+    reimbursementResolver?: number,
     reimbursementStatus: number,
     reimbursementType: number
 

@@ -1,9 +1,9 @@
 :root {
-    --bg: #2D2E2E;
-    --dark: #0F0F0F;
-    --btn-blue: #46B1C9;
-    --accent: #23CE6B;
-    --text-white: #FBFBFB;
+    --bg: #6E8898;
+    --dark: #2E5266;
+    --btn-blue: #9FB1BC;
+    --accent: #E2C044;
+    --text-white: #D3D0CB;
 }
 
 .navbar {
@@ -17,4 +17,31 @@
     top: 0;
     width: 100%;
     z-index: 1;
+}
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 80%;
+    justify-content: end;
+    margin-right: 2rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 20px;
+}
+
+.nav-link {
+    color: var(--dark);
+    font-size: 1.1rem;
+    text-decoration: none;
+    cursor: pointer;
 }

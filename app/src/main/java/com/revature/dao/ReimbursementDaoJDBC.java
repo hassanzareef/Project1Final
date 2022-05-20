@@ -1,5 +1,6 @@
 package com.revature.dao;
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setDouble(1, amount);
-            ps.setDate(2, (new Date (System.currentTimeMillis())));
+            ps.setDate(2, (new Date (Instant.now().toEpochMilli())));
             ps.setString(3, description);
             ps.setInt(4, author);
             ps.setInt(5, 1);
@@ -61,7 +62,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
     public List<Reimbursements> viewResolvedRequest(int id) {
         Connection c = cs.getConnection();
 
-        String sql = "Select * from reimbursement WHERE reimbursement_author=? and reimbursement_status = 2";
+        String sql = "Select * from reimbursement WHERE reimbursement_author=? and reimbursement_status = 2 or reimbursement_status = 3";
 
         try{
             PreparedStatement ps = c.prepareStatement(sql);
@@ -108,7 +109,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
     public List<Reimbursements> viewAllResolvedRequests() {
         Connection c = cs.getConnection();
 
-        String sql = "Select * from reimbursement WHERE reimbursement_status = 2";
+        String sql = "Select * from reimbursement WHERE reimbursement_status = 2 or reimbursement_status = 3";
 
         try{
             Statement s = c.createStatement();
@@ -151,14 +152,16 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
     }
 
     @Override
-    public void approveRequest(int id) {
+    public void approveRequest(int id, int resolver) {
         Connection c = cs.getConnection();
 
-        String sql = "update reimbursement SET reimbursement_status = 2  WHERE reimbursement_id = ?";
+        String sql = "update reimbursement SET reimbursement_status = 2, resolved_date = ?, reimbursement_resolver = ?  WHERE reimbursement_id = ?";
 
         try{
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setDate(1, (new Date (Instant.now().toEpochMilli())));
+            ps.setInt(2, resolver);
+            ps.setInt(3,id);
             ps.execute();
 
         }catch(SQLException e){
@@ -168,14 +171,16 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
     }
 
     @Override
-    public void denyRequest(int id) {
+    public void denyRequest(int id, int resolver) {
         Connection c = cs.getConnection();
 
-        String sql = "update reimbursement SET reimbursement_status = 3  WHERE reimbursement_id = ?";
+        String sql = "update reimbursement SET reimbursement_status = 3, resolved_date = ?, reimbursement_resolver = ?  WHERE reimbursement_id = ?";
 
         try{
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setDate(1, (new Date (Instant.now().toEpochMilli())));
+            ps.setInt(2, resolver);
+            ps.setInt(3,id);
             ps.execute();
 
         }catch(SQLException e){

@@ -8,6 +8,7 @@ import { Reimbursements } from '../../components/Reimbursements/Reimbursements';
 import { UserProfile } from '../UserProfile/UserProfile';
 
 //import './ManagerHome.css';
+import '../../Table.css';
 export const ManagerHome: React.FC = () => {
 
     const userInfo = useSelector((state:RootState) => state.user);
@@ -38,17 +39,22 @@ export const ManagerHome: React.FC = () => {
     return(
         <>
             <UserProfile />
-            <div className="manager-page">
-                <h1>Enter Employee Username</h1>
-                <input autoComplete='off' required type="text" name="employeeId" placeholder='Employee Username' onChange={handleId}></input>
+            <div className="manager2-page">
+                <h1>Enter Employee ID</h1>
+                <input autoComplete='off' required type="number" name="employeeId" placeholder='Employee ID' onChange={handleId}></input>
                 <button className="submit-search-btn" onClick={searchRequest}>Search</button>
                 <table className='table-class'>
                     <tbody>
                         <tr className='table-row-head'>
+                        <th className='table-head'>Author ID</th>
                             <th className='table-head'>Amount</th>
                             <th className='table-head'>Description</th>
                             <th className='table-head'>Status</th>
                             <th className='table-head'>Type</th>
+                            <th className='table-head'>Submitted Date</th>
+                            <th className='table-head'>Resolver ID</th>
+                            <th className='table-head'>Resolved Date</th>
+
                         </tr>
                         {pending.pending ? pending.pending.map((reimbursements:IReimbursements) => {
                         return <tr className='table-row'><Reimbursements {...reimbursements} key={reimbursements.reimbursementId} /></tr>
