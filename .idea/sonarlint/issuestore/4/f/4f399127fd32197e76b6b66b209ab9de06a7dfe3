@@ -1,0 +1,7 @@
+
+I
+java:S1602"",Remove useless curly braces around statement(ëñüÎ8àá›0
+p
+java:S1612""SReplace this lambda with method reference 'JavalinConfig::enableCorsForAllOrigins'.(ëñüÎ8•àá›0
+c
+java:S1128"ARemove this unused import 'io.javalin.http.staticfiles.Location'.(£…ûÿÿÿÿ8àá›0

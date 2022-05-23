@@ -32,7 +32,7 @@ export const LoginPage: React.FC = () => {
         <div className= "login-page">
             <h1 className = "login-page">Login Page</h1>
             {userState.error ? <h2 className="login-error">Username or password incorrect</h2> : <></>}
-            <Login/>;
+            <Login/>
         </div>
     )
 

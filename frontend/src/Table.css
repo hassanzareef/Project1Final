@@ -65,8 +65,8 @@
     border: 2px solid var(--text-white);
     border-radius: 5px;
     width: fit-content;
-    margin-left: 35rem;
-    margin-right: 35rem;
+    margin-left: 52.5rem;
+    margin-right: 52.5rem;
     flex-direction: column;
     margin-top: 1rem;
 }
@@ -108,8 +108,8 @@
     border: 2px solid var(--text-white);
     border-radius: 5px;
     width: fit-content;
-    margin-left: 35rem;
-    margin-right: 35rem;
+    margin-left: 52.5rem;
+    margin-right: 52.5rem;
     flex-direction: column;
     margin-top: 1rem;
 }

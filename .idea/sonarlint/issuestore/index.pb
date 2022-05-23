@@ -38,5 +38,11 @@ S
 #frontend/src/slices/PendingSlice.ts,e\2\e27b90fd133ad9ffe108ee80fcb5a300d565bf3d
 T
 $frontend/src/slices/ResolvedSlice.ts,c\c\ccb6d1a316dce68fcfb425b6b794c7a2e1140190
+g
+7app/src/main/java/com/revature/ReimbursementDriver.java,4\f\4f399127fd32197e76b6b66b209ab9de06a7dfe3
+n
+>app/src/main/java/com/revature/controllers/UserController.java,c\8\c8efb88e44ba24395badea17949be5e5b7cd6cad
 _
 /app/src/main/java/com/revature/models/User.java,f\f\fff6efe38be8224006013f88454fc3e0dd198250
+c
+3app/src/main/java/com/revature/dao/UserDaoJDBC.java,6\9\69d68631c1757d721413edd21cb29cbda44586ce
